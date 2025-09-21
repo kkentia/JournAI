@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="App logo" src="frontend/src/favicon.ico" width="160">
+  <img alt="App logo" src="JournAI/frontend/src/favicon.ico" width="160">
 </p>
 
 <h1 align="center">JournIA</h1>
