@@ -1,0 +1,93 @@
+<div class="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <h2>Activity Histogram</h2>
+      <span class="info-icon">ℹ
+        <span class="info-tooltip">
+          A weekly histogram of your activities, colored by their associated mood. 
+          Hover on an activity to see its mood rating and daily count. 
+          To merge similar items (e.g., 'game' and 'gaming'), click on them and use the merge toolbar that appears below.
+        </span>
+      </span>
+    </div>
+
+    <div #histDiv class="histogram-container" id="histDiv">
+
+      <!-- week selector -->
+      <div class="week-selector">
+        <button (click)="prevWeek()">←</button>
+        <span>{{ weekLabel }}</span>
+        <button (click)="nextWeek()">→</button>
+      </div>
+
+      <!-- histogram -->
+      <div class="histogram">
+        <!-- 7 bars loop -->
+        <div *ngFor="let day of data" class="bar">
+          <div class="bar-content">
+            <div *ngFor="let activity of day.activities"
+                 class="activity selectable"
+                 [class.selected]="isSelected(activity.name)"
+                 (click)="toggleSelect(activity.name)"
+                 [style.height.px]="(activity.count ?? 0) * 20"
+                 [ngStyle]="{ 'background-color': getMoodColor(activity.mood ?? 5) }">
+
+              {{ activity.name }}
+
+              <span class="tooltip">
+                Mood: {{ activity.mood | number:'1.1-1' }}, Count: {{ activity.count }}
+              </span>
+            </div>
+          </div>
+          <div class="bar-label"
+               [title]="'Total activities: ' + getTotalActivitiesSafe(day.activities)">
+            {{ day.day }}
+          </div>
+        </div>
+
+        <div class="label-line"></div>
+      </div>
+    </div>
+
+    <!-- legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <span class="color-box" style="background-color: #4caf50;"></span>
+        Good mood (7–10)
+      </div>
+      <div class="legend-item">
+        <span class="color-box" style="background-color: #cddc39;"></span>
+        Neutral mood (4–6)
+      </div>
+      <div class="legend-item">
+        <span class="color-box" style="background-color: #f44336;"></span>
+        Bad mood (0–3)
+      </div>
+    </div>
+
+    <!-- merge toolbar -->
+    <div class="merge-toolbar" *ngIf="selectedNames.size > 0">
+      <div class="chips">
+        <span class="chip" *ngFor="let n of selectedNames" (click)="toggleSelect(n)">
+          {{ n }} ✕
+        </span>
+      </div>
+
+      <div class="target-input">
+        <input
+          type="text"
+          placeholder="label, e.g. 'hiking'"
+          [(ngModel)]="mergeTarget"
+        />
+        <button [disabled]="!canMerge()" (click)="mergeSelected()">
+          Merge selected
+        </button>
+        <button class="ghost" (click)="clearSelection()">Clear</button>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>

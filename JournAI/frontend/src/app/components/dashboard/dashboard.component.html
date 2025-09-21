@@ -1,0 +1,78 @@
+<mat-toolbar-row class="toolbar">
+  <button mat-icon-button (click)="onSettingsClick()">
+    <mat-icon>settings</mat-icon> <!-- must be lowercase -->
+  </button>
+
+
+
+  <h1 class="title">Dashboard</h1>
+</mat-toolbar-row>
+
+
+
+
+<div class="grid-container">
+  <mat-grid-list cols="4" rowHeight="2:1" gutterSize="16px">
+    <mat-grid-tile [colspan]="2" [rowspan]="2" class="notes-tile">
+      <div class="notes-container">
+        <textarea [(ngModel)]="noteContent" (blur)="saveNote()" rows="8"
+                  placeholder="Type your notes here..."></textarea>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile *ngFor="let tile of tiles"
+                   [colspan]="tile.cols"
+                   [rowspan]="tile.rows"
+                   (click)="onTileClick(tile)"
+                   [class.clickable]="tile.clickable">
+      {{ tile.text }}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+
+
+
+<div class="disclaimer">
+  <h3 (click)="toggleDisclaimer()" class="disclaimer-title">
+    Disclaimer
+    <mat-icon>{{ showDisclaimer ? 'expand_less' : 'expand_more' }}</mat-icon>
+  </h3>
+
+  <div *ngIf="showDisclaimer" class="disclaimer-content">
+    <h4>For Educational & Research Purposes Only</h4>
+    <p>
+      This application, JournAI, is a software prototype created as part of a Bachelor's Thesis project.
+      It is intended for demonstration and evaluation purposes only and has not undergone rigorous clinical testing.
+    </p>
+
+    <h4>Not a Substitute for Professional Help</h4>
+    <p>
+      JournAI is not a medical or therapeutic tool. The insights, visualizations, and any text generated
+      by the AI do not constitute medical or psychological advice. It should never be used to diagnose or
+      treat any health condition. Always consult with a qualified healthcare provider for any mental health concerns.
+    </p>
+
+    <h4>Warning Regarding the Experimental Chatbot</h4>
+    <p>
+      The conversational chat feature within JournAI is particularly experimental. This feature can generate
+      unpredictable, inaccurate, or nonsensical responses. It is included for technical demonstration only
+      and should NOT be used for serious self-reflection or support. Reliance on this feature could be misleading.
+    </p>
+
+    <h4>Emergency Situations</h4>
+    <p>
+      This application is not monitored and is not equipped to handle a crisis. If you are experiencing
+      a mental health emergency, please call your local emergency number or contact a crisis hotline immediately.
+    </p>
+
+    <p class="ack">
+      By using JournAI, you acknowledge that you have read and understood this disclaimer and agree to use the application at your own risk.
+    </p>
+  </div>
+</div>
+
+
+
+
+

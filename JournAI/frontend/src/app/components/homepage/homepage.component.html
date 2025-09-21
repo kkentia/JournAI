@@ -1,0 +1,36 @@
+<h1>Welcome to JournAI</h1>
+<p>Insert your age and gender here to get started.</p>
+
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <input type="number" id="ageInput" name="age" min="0" max="100" placeholder="Age" [(ngModel)]="age" required><br>
+      <div class="radio-buttons">
+        <input type="radio" name="gender" placeholder="Gender" value="female" [(ngModel)]="gender"> female <br>
+        <input type="radio" name="gender" placeholder="Gender" value="male" [(ngModel)]="gender"> male <br>
+        <input type="radio" name="gender" placeholder="Gender" value="other"[(ngModel)]="gender"> other <br>
+      </div>
+    <div *ngIf="age !== null && age >= 0 && age <= 100; else elseBlock" ></div>
+      <ng-template #elseBlock >Age is required and must be between 1 and 100.</ng-template>
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+    <!-- routerLink="/journal also works for navigation, but is not really on form submit-->
+  </div>
+</form>
+
+<div class="disclaimer">
+  <h3>Disclaimer</h3>
+  <p>
+    JournAI is an academic prototype developed for a Bachelor's Thesis and is not a medical device.
+    It is intended for demonstration purposes only and should not be used as a substitute for professional
+    therapy or mental health advice.
+  </p>
+  <p>
+    The conversational AI chat feature is highly experimental. Its responses may be inaccurate or
+    inappropriate and should not be relied upon for any purpose.
+  </p>
+  <p>
+    If you are in crisis, please contact a qualified healthcare professional or a local emergency
+    service immediately.
+  </p>
+</div>

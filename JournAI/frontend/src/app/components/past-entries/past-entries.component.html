@@ -1,0 +1,63 @@
+<mat-toolbar-row class="toolbar">
+  <button class="back-button" (click)="goBack()">← Back</button>
+  <h1>Past Entries</h1>
+</mat-toolbar-row>
+
+<div class="past-entries-container">
+  <div class="entries-list">
+    <div *ngIf="chatEntries.length === 0" class="no-entries-text">
+      No entries yet
+    </div>
+
+    <mat-card *ngFor="let entry of chatEntries" class="entry-card" (click)="openPopup(entry)">
+      <mat-card-content class="entry-content">
+        <div class="entry-info">
+          <div class="entry-title">{{ entry.title | slice:0:40 }}</div>
+          <div class="entry-date">{{ entry.timestamp | date:'medium' }}</div>
+        </div>
+
+        <div class="entry-actions">
+          <button mat-stroked-button type="button"
+                  (click)="summarizeEntry(entry.entry_id); $event.stopPropagation()">
+            Summarize
+          </button>
+
+          <button mat-stroked-button type="button"
+                  (click)="renameEntry(entry); $event.stopPropagation()">
+            Rename
+          </button>
+          
+          <button mat-stroked-button type="button"
+                  (click)="deleteData(entry); $event.stopPropagation()">
+            Delete
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- conversation popup -->
+  <div class="popup-overlay" *ngIf="selectedEntry" (click)="closePopup()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <h2>Conversation</h2>
+      <div *ngFor="let msg of selectedEntry.messages"
+           [ngClass]="msg.sender === 'user' ? 'user-message' : 'bot-message'"
+           class="message-bubble">
+        <p><strong>{{ msg.sender === 'user' ? 'You' : 'Bot' }}:</strong> {{ msg.content }}</p>
+      </div>
+      <button mat-button (click)="closePopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- delete conv -->
+<div class="modal-backdrop" *ngIf="showConfirmDialog">
+  <div class="modal-dialog">
+    <h2>Confirm Deletion</h2>
+    <p>This will forever delete this entry. Are you sure you want to do that?</p>
+    <div class="modal-buttons">
+      <button mat-raised-button (click)="confirmDeleteEntry(); $event.stopPropagation()">Yes, delete</button>
+      <button mat-raised-button (click)="cancelDelete()">Cancel</button>
+    </div>
+  </div>
+</div>

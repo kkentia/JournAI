@@ -1,0 +1,80 @@
+<mat-toolbar-row class="toolbar">
+  <h1>Graphs</h1>
+  <button *ngIf="focusedGraph" class="back-btn" (click)="exitFocus()">
+    Back
+  </button>
+
+  <button *ngIf="!focusedGraph" class="close-btn" (click)="closeGraph()">
+    Close
+  </button>
+
+  <div class="view-selector">
+    <button class="view-btn" [class.active]="currentView === 'day'" (click)="setView('day')">Day</button>
+
+    <button class="view-btn" [class.active]="currentView === 'week'" (click)="setView('week')">Week</button>
+
+    <button class="view-btn" [class.active]="currentView === 'month'" (click)="setView('month')">Month</button>
+  </div>
+
+</mat-toolbar-row>
+
+
+
+<div class="all-graphs">
+  <!--full grid with all graphs -->
+  <div class="graphs-grid" *ngIf="!focusedGraph">
+    <!-- row 1 -->
+    <div class="graph-card" (click)="focus('spider')" tabindex="0">
+      <div class="card-body">
+        <app-spider-graph></app-spider-graph>
+      </div>
+    </div>
+
+    <div class="graph-card" (click)="focus('plutchik')" tabindex="0">
+      <div class="card-body">
+        <app-plutchik-wheel></app-plutchik-wheel>
+      </div>
+    </div>
+
+    <!-- row 2 -->
+    <div class="graph-card" (click)="focus('va')" tabindex="0">
+      <div class="card-body">
+        <app-arousal-valence ></app-arousal-valence>
+      </div>
+    </div>
+
+    <div class="graph-card" (click)="focus('themeriver')" tabindex="0">
+      <div class="card-body">
+        <app-themeriver></app-themeriver>
+      </div>
+    </div>
+
+    <!-- full-width histogram row 3 -->
+    <div class="graph-card graph-card--full" (click)="focus('hist')" tabindex="0">
+      <div class="card-body">
+        <app-histogram></app-histogram>
+      </div>
+    </div>
+  </div>
+
+  <!-- focused graph, full size -->
+  <div class="focused-graph" *ngIf="focusedGraph">
+    <ng-container [ngSwitch]="focusedGraph">
+      <div *ngSwitchCase="'spider'" class="focus-card focus--spider">
+        <app-spider-graph canvasId="radarChartFocus" ></app-spider-graph>
+      </div>
+      <div *ngSwitchCase="'plutchik'" class="focus-card focus--plutchik">
+        <app-plutchik-wheel ></app-plutchik-wheel>
+      </div>
+      <div *ngSwitchCase="'va'" class="focus-card focus--va">
+        <app-arousal-valence ></app-arousal-valence>
+      </div>
+      <div *ngSwitchCase="'themeriver'" class="focus-card focus--themeriver">
+        <app-themeriver></app-themeriver>
+      </div>
+      <div *ngSwitchCase="'hist'" class="focus-card focus--hist">
+        <app-histogram ></app-histogram>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<mat-toolbar-row class="toolbar">
+  <button class="back-button" (click)="goBack()">← Back</button>
+  <h1>Settings</h1>
+</mat-toolbar-row>
+
+<div class="page">
+
+  <div class="settings-container">
+
+    <form *ngIf="userData">
+      <mat-form-field appearance="fill">
+        <mat-label>Name (optional)</mat-label>
+        <input matInput [(ngModel)]="userData.name" name="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Age</mat-label>
+        <input matInput type="number" [(ngModel)]="userData.age" name="age">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="custom-gender">
+        <mat-label>Gender</mat-label>
+        <select matNativeControl [(ngModel)]="userData.gender" name="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </mat-form-field>
+
+        <button class="save-button" (click)="saveUser()">Save</button>
+        <button class="delete-button" (click)="deleteAllData()">Delete All Data</button>
+
+    </form>
+
+
+  </div>
+
+    <!-- Modal popup -->
+  <div class="modal-backdrop" *ngIf="showConfirmDialog">
+    <div class="modal-dialog">
+      <h2>Confirm Deletion</h2>
+      <p>This will delete all your data and cannot be undone.</p>
+      <div class="modal-buttons">
+        <button mat-raised-button color="warn" (click)="confirmDelete()">Yes, delete</button>
+        <button mat-raised-button (click)="cancelDelete()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</div>

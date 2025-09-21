@@ -1,0 +1,59 @@
+<ng-container *ngIf="!questionnaireDone">
+  <app-questionnaire
+    *ngIf="entryId !== undefined"
+    [entryId]="entryId"
+    (completed)="onQuestionnaireDone()">
+  </app-questionnaire>
+
+  <!-- if entry_id doesn't exist yet -->
+  <app-questionnaire
+    *ngIf="entryId === undefined"
+    (completed)="onQuestionnaireDone()">
+  </app-questionnaire>
+</ng-container>
+
+  <mat-toolbar-row class="toolbar">
+    <button class="back-button"  *ngIf="entryId" (click)="endEntry()">
+        End Entry
+    </button>
+    <h1>Journal</h1>
+  </mat-toolbar-row>
+
+
+<div class="chat-container">
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <div class="messages" #messagesContainer>
+    <div *ngFor="let chat of chatHistory; let i = index">
+      <div class="message user-message">
+        <p><strong>You:</strong> {{ chat.user }}</p>
+      </div>
+
+      <div class="message bot-message" *ngIf="botRepliesEnabled || chat.bot">
+        <strong>Bot:</strong>
+
+        <!-- show typing dots while thinking -->
+        <div *ngIf="botRepliesEnabled && chat.bot === ''" class="typing-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+
+
+        <!-- show final answer -->
+        <div *ngIf="chat.bot && chat.bot !== '...'" class="final-answer">
+          <p>{{ chat.bot }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-container">
+        <label>
+      <input type="checkbox" [(ngModel)]="botRepliesEnabled">
+      AI
+    </label>
+    <input class="textbox" [(ngModel)]="userMessage" placeholder="Type a message..." (keyup.enter)="sendMessage()" />
+    <button class="sendbutton" (click)="sendMessage()" [disabled]="isWaitingForBot || !userMessage.trim()">Send</button>
+  </div>
+</div>

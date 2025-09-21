@@ -1,0 +1,48 @@
+<div class="overlay">
+  <div class="popup">
+    <h2>Pre-Journal Questionnaire</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="scroll-container">
+        <h3>Over the past 2 weeks, how intensely have you been bothered by the following?
+          <span class="tooltip-container">ℹ️
+            <span class="tooltip-text">
+              Rate from 0 (not at all) to 10 (extremely intense)
+            </span>
+          </span>
+        </h3>
+
+        <div class="dropdown-menu" *ngFor="let question of phq4Questions; let i = index">
+          <label>{{ question.label }}</label><br>
+          <select [(ngModel)]="question.value" name="phq4_{{ i }}">
+            <option [ngValue]="undefined">-- Select --</option>
+            <option *ngFor="let val of [].constructor(11); let v = index" [value]="v">{{ v }}</option>
+          </select><br><br>
+        </div>
+
+        <h3>
+          State-level feelings questions
+          <span class="tooltip-container">ℹ️
+            <span class="tooltip-text">
+              Please select how much you feel each word from 1 to 5:<br />
+              1 = I don’t feel<br />
+              2 = I feel a little bit<br />
+              3 = I feel fairly<br />
+              4 = I feel quite a bit<br />
+              5 = I feel extremely
+            </span>
+          </span>
+        </h3>
+
+        <div class="dropdown-menu" *ngFor="let question of stateFeelings; let j = index">
+          <label>{{ question.label }}</label><br>
+          <select [(ngModel)]="question.value" name="stateFeeling_{{ j }}">
+            <option [ngValue]="undefined">-- Select --</option>
+            <option *ngFor="let val of [1,2,3,4,5]" [value]="val">{{ val }}</option>
+          </select><br><br>
+        </div>
+
+          <button type="submit">Continue to Journal</button>
+      </div>
+    </form>
+  </div>
+</div>

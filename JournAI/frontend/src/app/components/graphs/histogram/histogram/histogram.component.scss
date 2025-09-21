@@ -1,0 +1,148 @@
+
+.histogram {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 300px;
+  margin-top: 30px;
+  background-color: #e0e0e0;
+  position: relative;
+  flex-wrap: nowrap; //keep bars on one line!!!
+
+}
+
+.histogram-container {
+  margin-top: 2rem; // rem: relative to the root element’s font size, stands for “root em”
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12%;
+
+}
+
+.bar-label {
+  margin-bottom: 8px;
+  font-weight:lighter;
+  font-size: 14px;
+  margin-top: 1px solid #000000;
+  :hover {
+    font-weight: bold;
+  }
+}
+
+.bar-content {
+  margin-bottom: 8px;
+  min-height: 100px;
+  height: 265px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: auto;
+  overflow: visible; // allow text to overflow its case 
+  margin-top: 1px solid #000000;
+  position: relative;
+
+
+}
+
+.activity {
+  position: relative; // needed for absolute positioning tooltip inside
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: height 0.3s ease;
+  border-bottom: #ffffff 1px solid;
+  cursor: default; //show pointer to show hover
+}
+
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 6px;
+  padding: 6px 10px;         
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;        // keep in one line 
+  max-width: 220px;           
+  overflow-wrap: break-word; 
+  opacity: 0;
+  pointer-events: none; //let hover events pass through 
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  box-sizing: border-box;    
+}
+
+.activity:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.legend {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}
+
+.label-line {
+  position: absolute;
+  bottom: 30px;     
+  left: 0;
+  width: 100%;
+  height: 2px; //thickness of the line
+  background-color: #888888;
+  z-index: 10;
+}
+
+
+
+
+.week-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: sans-serif;
+  margin: 1rem 0;
+}
+
+button {
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f9f9f9;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #e0e0e0;
+}
+

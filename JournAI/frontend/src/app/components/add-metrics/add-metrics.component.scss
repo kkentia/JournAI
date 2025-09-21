@@ -1,0 +1,141 @@
+.page {
+  max-width: 980px;
+  margin: 80px auto 40px;
+  padding: 0 16px;
+}
+
+.topbar {
+  text-align: center;
+  margin-bottom: 16px;
+
+  h1 { margin: 0 0 12px; }
+  .tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: #f7f7f9;
+      cursor: pointer;
+    }
+    button.active {
+      background: #3498db;
+      color: #fff;
+      border-color: #3498db;
+    }
+  }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  margin-bottom: 20px;
+
+  h2 { margin-top: 0; }
+  .hint { color:#777; font-size: 12px; margin-top: 8px; }
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+@media (max-width: 720px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+label { display: flex; flex-direction: column; gap: 6px; }
+input[type="text"], input[type="number"], select {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+
+  button {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    background: #3498db;
+    color: #fff;
+    cursor: pointer;
+  }
+  .ghost {
+    background: #f2f4f7;
+    color: #333;
+  }
+}
+
+.rows { display: flex; flex-direction: column; gap: 8px; }
+.row { display: grid; gap: 8px; grid-template-columns: 160px 1fr 120px 160px auto; align-items: center; }
+@media (max-width: 860px) {
+  .row { grid-template-columns: 1fr 1fr; }
+}
+.inline { font-weight: 600; }
+
+.val { width: 28px; text-align: right; font-weight: 600; }
+
+
+//pluthchik
+// visually hidden utility for a11y --> check docs
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,1px,1px) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.plutchik-card .row {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 200px 180px 160px 220px auto; // select  intensity  level  sub  remove 
+  align-items: start; // top align everything so controls line up 
+}
+
+// col header row (text only) 
+.plutchik-card .row-labels {
+  align-items: end;             
+}
+
+.plutchik-card select,
+.plutchik-card input[type="number"],
+.plutchik-card input[type="text"] {
+  height: 38px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.plutchik-card label.inline {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .plutchik-card .row,
+  .plutchik-card .row-labels {
+    grid-template-columns: 1fr 1fr;   
+    align-items: start;
+  }
+}

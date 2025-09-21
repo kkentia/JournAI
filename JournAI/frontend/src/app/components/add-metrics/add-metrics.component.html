@@ -1,0 +1,129 @@
+<mat-toolbar-row class="toolbar">
+
+  <button class="back-button" (click)="goBack()">
+        ←Back
+     </button>
+
+    <h1>Manual Data Entry</h1>
+</mat-toolbar-row>
+
+
+
+
+<div class="page">
+  <header class="topbar">
+    <nav class="tabs">
+      <button [class.active]="activeTab==='activities'" (click)="activeTab='activities'">Activities</button>
+      <button [class.active]="activeTab==='quiz'"       (click)="activeTab='quiz'">Feelings</button>
+      <button [class.active]="activeTab==='plutchik'"   (click)="activeTab='plutchik'">Emotions</button>
+    </nav>
+  </header>
+
+  <!-- ACTIVITIES -->
+  <section *ngIf="activeTab==='activities'" class="card">
+    <h2>Activities</h2>
+    <form (ngSubmit)="submitActivity()" class="grid">
+      <label>
+        Activity label
+        <input type="text" [(ngModel)]="actForm.description" name="act_desc" required placeholder="e.g. gaming, driving" />
+      </label>
+
+      <label>
+        Mood rating (1-10)
+        <input type="number" [(ngModel)]="actForm.rating" name="act_rating" min="1" max="10" step="1" required />
+      </label>
+
+      <label>
+        Comment (optional)
+        <input type="text" [(ngModel)]="actForm.comment" name="act_comment" placeholder="e.g. intense workout" />
+      </label>
+
+      <div class="actions">
+        <button type="submit" [disabled]="!actForm.description || !actForm.rating">Save</button>
+      </div>
+    </form>
+      <p class="hint"> Activities appear in the Activity Histogram for the current day</p>
+  </section>
+
+  <!-- QUIZ / SPIDER -->
+  <section *ngIf="activeTab==='quiz'" class="card">
+    <h2>Quiz (Spider)</h2>
+    <form (ngSubmit)="submitQuiz()" class="grid grid-2">
+      <div *ngFor="let ax of spiderLabels" class="row">
+        <label>{{ ax.label }} ({{ ax.key }})</label>
+        <input type="range" min="1" max="10" step="1" [(ngModel)]="quizRatings[ax.key]" [name]="'q_'+ax.key" />
+        <span class="val">{{ quizRatings[ax.key] || '-' }}</span>
+      </div>
+      <div class="actions">
+        <button type="submit">Save ratings</button>
+      </div>
+    </form>
+    <p class="hint"> Select at least 1 feeling and rate from 0 (not at all) to 10 (extremely intense)</p>
+  </section>
+
+
+<!-- PLUTCHIK -->
+<section *ngIf="activeTab==='plutchik'"
+         class="card plutchik-card">
+  <h2>Plutchik Emotions</h2>
+
+  <div class="rows">
+    <!-- Column headers -->
+    <div class="row row-labels">
+      <div>Primary Emotion</div>
+      <div>Intensity 0..1</div>
+      <div>Level (1..3)</div>
+      <div>Sub emotion</div>
+      <div></div>
+    </div>
+
+    <!-- Data rows -->
+    <div class="row pl-row" *ngFor="let r of plutchikRows; let i = index">
+      <select
+        [(ngModel)]="r.primary"
+        [id]="'p_'+i"
+        [name]="'p_'+i"
+        (change)="onPrimaryChange(r)">
+        <option value="joy">joy</option>
+        <option value="trust">trust</option>
+        <option value="fear">fear</option>
+        <option value="surprise">surprise</option>
+        <option value="sadness">sadness</option>
+        <option value="disgust">disgust</option>
+        <option value="anger">anger</option>
+        <option value="anticipation">anticipation</option>
+      </select>
+
+      <label class="inline">
+        <span class="sr-only">Intensity</span>
+        <input
+          type="number" min="0" max="1" step="0.01"
+          [(ngModel)]="r.intensity" [name]="'i_'+i"
+          (input)="updateLevel(r)" />
+      </label>
+
+      <label class="inline">
+        <span class="sr-only">Level</span>
+        <input
+          type="number" min="1" max="3" step="1"
+          [(ngModel)]="r.level" [name]="'l_'+i"
+          (input)="onLevelChange(r)" />
+      </label>
+
+      <label class="inline">
+        <span class="sr-only">Sub emotion</span>
+        <input type="text" [value]="r.subLabel" disabled />
+      </label>
+
+      <button class="ghost" (click)="removeRow(i)" *ngIf="plutchikRows.length>1">Remove</button>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="ghost" (click)="addPlutchikRow()">+ Add emotion</button>
+    <button (click)="submitPlutchik()">Save</button>
+  </div>
+    <p class="hint"> Every pair of 2 emotions creates a dyad</p>
+</section>
+
+</div>

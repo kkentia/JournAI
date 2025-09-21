@@ -1,0 +1,82 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.scroll-container {
+  max-height: 400px;
+  overflow-y: auto; // adds the scrollbar 
+  margin-bottom: 20px;
+}
+
+// make each question container a flex row 
+.scroll-container > div {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+  margin-right: 10px;
+
+}
+
+.dropdown-menu select {
+  width: 80px;
+  margin-left: auto;
+}
+
+
+//----------------------------------- info popups -----------------------------------
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  padding: 8px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 9999;
+  bottom: 125%; 
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+  width: 200px;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+//----------------------------------------------------------------------------------
+
+
+form button {
+  margin-top: 1.5rem; 
+  padding: 0.25rem ;
+  font-size: 1rem;     
+  margin-left: 170px;
+  margin-right: 170px;
+}
+
