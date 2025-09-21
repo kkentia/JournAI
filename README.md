@@ -43,35 +43,27 @@ JournIA is a full-stack app that helps you journal and visualize your mood data.
 ---
 
 ## Installation
-Create & activate a virtual environment (recommended):
+Create & activate a virtual environment from inside JournAI/ (recommended):
 
 ```bash
 # macOS / Linux
-python3 -m venv .venv
+python3.11 -m venv .venv
 source .venv/bin/activate
 
-# Windows (from inside JournAI/)
+# Windows
+py -3.11 -m venv venv
 .\venv\Scripts\activate
 ```
 ### Run following commands to install  dependencies: 
 #### Backend:
-- `pip install uvicorn`
+- `pip install -r requirements.txt`
 - `$env:CMAKE_ARGS="-DGGML_CUDA=on"; pip install --force-reinstall --no-cache-dir llama-cpp-python` —> to use GPU (standard llama-cpp-python is for cpu only. For this one we need python version 3.11.9 and a recent version of CUDA)
-- `pip install --upgrade huggingface_hub`
 - `brew install cmake` —> for Apple M1 hardware
 - `brew install pkg-config` —> for Apple M1 hardware
-- `pip install -r requirements.txt`
 
 #### Frontend:
 - `npm install`
-- `npm install -g @angular/cli` 
-- `npm install @angular/common @angular/ssr`
-- `npm install express`
-- `npm install @angular-devkit/build-angular --save-dev`
-- `npm install plotly.js`
-- `npm install --save-dev @types/plotly.js`
-- `npm install chart.js` 
-- `npm install date-fns —save`
+
 
 
 ## Running the app
