@@ -90,7 +90,6 @@ Temporary Items
 *.pth
 *.gguf
 *.bin
-*.json
 /backend/offload/
 /backend/backend/
 
