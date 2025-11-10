@@ -63,6 +63,8 @@ py -3.11 -m venv venv
 
 #### Frontend:
 - `npm install`
+- `npm install -g @angular/cli`
+
 
 
 
